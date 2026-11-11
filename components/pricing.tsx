@@ -1,6 +1,6 @@
 "use client";
 
-import { plans, type PlanId } from "@/lib/content";
+import type { Gym, Plan } from "@/lib/types";
 
 function Tick() {
   return (
@@ -12,46 +12,62 @@ function Tick() {
   );
 }
 
-export function Pricing({ onPick }: { onPick: (id: PlanId) => void }) {
+export function Pricing({ gym, onPick }: { gym: Gym; onPick: (id: string) => void }) {
   return (
     <section className="paper" id="prices">
       <div className="section-head">
-        <h2>Четыре способа ходить в зал</h2>
-        <p>Цены с витрины сообщества. Полгода дешевле, чем платить месяц за месяцем.</p>
+        <h2>{gym.priceTitle}</h2>
+        <p>{gym.priceIntro}</p>
       </div>
       <div className="price-grid">
-        {plans.map((plan) => (
-          <article key={plan.id} className={plan.id === "half" ? "plan plan-featured" : "plan"}>
-            <header>
-              <h3>
-                {plan.name}
-                <span className="note">{plan.note}</span>
-              </h3>
-              {plan.id === "half" ? <span className="mark">выгоднее</span> : null}
-            </header>
-            <p className="price">
-              {plan.price}
-              <small>{plan.period}</small>
-            </p>
-            <ul>
-              {plan.points.map((point) => (
-                <li key={point}>
-                  <Tick />
-                  <span>{point}</span>
-                </li>
-              ))}
-            </ul>
-            <footer>
-              <button className={plan.id === "half" ? "btn btn-light" : "btn btn-dark"} type="button" onClick={() => onPick(plan.id)}>
-                Записаться
-              </button>
-              <a className="btn btn-line" href="tel:+79377507982">
-                Позвонить
-              </a>
-            </footer>
-          </article>
+        {gym.plans.map((plan) => (
+          <PlanCard key={plan.id} plan={plan} contactHref={gym.phoneHref} contactLabel={gym.contactLabel} onPick={onPick} />
         ))}
       </div>
     </section>
+  );
+}
+
+function PlanCard({
+  plan,
+  contactHref,
+  contactLabel,
+  onPick,
+}: {
+  plan: Plan;
+  contactHref: string;
+  contactLabel: string;
+  onPick: (id: string) => void;
+}) {
+  return (
+    <article className={plan.featured ? "plan plan-featured" : "plan"}>
+      <header>
+        <h3>
+          {plan.name}
+          <span className="note">{plan.note}</span>
+        </h3>
+        {plan.featured ? <span className="mark">выгоднее</span> : null}
+      </header>
+      <p className="price">
+        {plan.price}
+        <small>{plan.period}</small>
+      </p>
+      <ul>
+        {plan.points.map((point) => (
+          <li key={point}>
+            <Tick />
+            <span>{point}</span>
+          </li>
+        ))}
+      </ul>
+      <footer>
+        <button className={plan.featured ? "btn btn-light" : "btn btn-dark"} type="button" onClick={() => onPick(plan.id)}>
+          Записаться
+        </button>
+        <a className="btn btn-line" href={contactHref}>
+          {contactLabel}
+        </a>
+      </footer>
+    </article>
   );
 }

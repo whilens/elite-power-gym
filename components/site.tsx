@@ -9,12 +9,14 @@ import { Header } from "@/components/header";
 import { Hero } from "@/components/hero";
 import { Pricing } from "@/components/pricing";
 import { Visit } from "@/components/visit";
-import { tracks, type PlanId } from "@/lib/content";
+import { epg } from "@/lib/content";
+import type { Gym } from "@/lib/types";
 
-export function Site() {
-  const [plan, setPlan] = useState<PlanId>("half");
+export function Site({ gym = epg }: { gym?: Gym }) {
+  const initial = gym.plans.find((item) => item.featured)?.id ?? gym.plans[0].id;
+  const [plan, setPlan] = useState(initial);
 
-  const pick = (id: PlanId) => {
+  const pick = (id: string) => {
     setPlan(id);
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     document.getElementById("zapis")?.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
@@ -22,16 +24,16 @@ export function Site() {
 
   return (
     <>
-      <Header />
+      <Header gym={gym} />
       <main>
-        <Hero />
+        <Hero gym={gym} />
         <section className="band" id="directions">
           <div className="section-head">
-            <h2>Зал без лишнего пафоса</h2>
-            <p>Достигнутый результат — это опыт зала и желание человека измениться. Так они сами пишут о себе.</p>
+            <h2>{gym.directionsTitle}</h2>
+            <p>{gym.directionsText}</p>
           </div>
           <ul className="track-list">
-            {tracks.map((item) => (
+            {gym.tracks.map((item) => (
               <li key={item.title}>
                 <strong>{item.title}</strong>
                 <span>{item.text}</span>
@@ -39,13 +41,13 @@ export function Site() {
             ))}
           </ul>
         </section>
-        <Pricing onPick={pick} />
-        <Formats />
-        <Facts />
-        <Faq />
-        <Visit plan={plan} onPlan={setPlan} />
+        <Pricing gym={gym} onPick={pick} />
+        <Formats gym={gym} />
+        <Facts gym={gym} />
+        <Faq gym={gym} />
+        <Visit gym={gym} plan={plan} onPlan={setPlan} />
       </main>
-      <Footer />
+      <Footer gym={gym} />
     </>
   );
 }

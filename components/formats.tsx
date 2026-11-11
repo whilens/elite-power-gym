@@ -1,15 +1,15 @@
-import { tracks } from "@/lib/content";
 import { Rail } from "@/components/rail";
+import type { Gym } from "@/lib/types";
 
-export function Formats() {
+export function Formats({ gym }: { gym: Gym }) {
   return (
     <section className="band" id="formats">
       <div className="section-head">
-        <h2>Что ведут в зале</h2>
-        <p>Пять форматов зала на Ополченской: от железа до детских групп.</p>
+        <h2>{gym.formatsTitle}</h2>
+        <p>{gym.formatsText}</p>
       </div>
       <Rail label="направления" className="rail-tall">
-        {tracks.map((item) => (
+        {gym.tracks.map((item) => (
           <article className="format" key={item.title}>
             <img src={item.image} alt="" />
             <div>

@@ -1,15 +1,15 @@
 "use client";
 
 import { useState } from "react";
-import { mapHref, phoneDisplay, phoneHref, plans, vkWriteHref, type PlanId } from "@/lib/content";
+import type { Gym } from "@/lib/types";
 
-export function Visit({ plan, onPlan }: { plan: PlanId; onPlan: (id: PlanId) => void }) {
+export function Visit({ gym, plan, onPlan }: { gym: Gym; plan: string; onPlan: (id: string) => void }) {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [error, setError] = useState("");
   const [ready, setReady] = useState(false);
 
-  const selected = plans.find((item) => item.id === plan) ?? plans[1];
+  const selected = gym.plans.find((item) => item.id === plan) ?? gym.plans[0];
 
   const submit = (event: React.FormEvent) => {
     event.preventDefault();
@@ -28,7 +28,7 @@ export function Visit({ plan, onPlan }: { plan: PlanId; onPlan: (id: PlanId) => 
     setReady(true);
   };
 
-  const message = `Здравствуйте! Хочу записаться в Elite Power Gym. Тариф: ${selected.name}, ${selected.price}. Меня зовут ${name.trim()}. Телефон: ${phone.trim()}.`;
+  const message = `Здравствуйте! Хочу записаться в ${gym.name}. Тариф: ${selected.name}, ${selected.price}. Меня зовут ${name.trim()}. Телефон: ${phone.trim()}.`;
 
   return (
     <section className="close" id="zapis">
@@ -39,20 +39,18 @@ export function Visit({ plan, onPlan }: { plan: PlanId; onPlan: (id: PlanId) => 
         />
       </div>
       <div className="close-copy">
-        <h2>Пробное занятие — 400 ₽</h2>
-        <p className="lead">
-          Оставьте имя и телефон. Со страницы заявка сама не уходит: дальше звонок или сообщение во ВКонтакте.
-        </p>
+        <h2>{gym.visitTitle}</h2>
+        <p className="lead">{gym.visitLead}</p>
         {ready ? (
           <div className="ok">
             <p>
-              {name.trim()}, тариф «{selected.name}». Наберите {phoneDisplay} или отправьте готовый текст во ВКонтакте.
+              {name.trim()}, тариф «{selected.name}». {gym.contactLabel}: {gym.phoneDisplay}. Можно сразу отправить готовый текст.
             </p>
             <p style={{ display: "flex", gap: 10, flexWrap: "wrap", marginTop: 14 }}>
-              <a className="btn btn-light" href={phoneHref}>
-                Позвонить
+              <a className="btn btn-light" href={gym.phoneHref}>
+                {gym.contactLabel}
               </a>
-              <a className="btn btn-line" href={`${vkWriteHref}?text=${encodeURIComponent(message)}`} target="_blank" rel="noreferrer">
+              <a className="btn btn-line" href={`${gym.vkWriteHref}?text=${encodeURIComponent(message)}`} target="_blank" rel="noreferrer">
                 Написать в VK
               </a>
             </p>
@@ -75,8 +73,8 @@ export function Visit({ plan, onPlan }: { plan: PlanId; onPlan: (id: PlanId) => 
             </label>
             <label>
               Тариф
-              <select value={plan} onChange={(event) => onPlan(event.target.value as PlanId)}>
-                {plans.map((item) => (
+              <select value={plan} onChange={(event) => onPlan(event.target.value)}>
+                {gym.plans.map((item) => (
                   <option key={item.id} value={item.id}>
                     {item.name} — {item.price}
                   </option>
@@ -93,7 +91,7 @@ export function Visit({ plan, onPlan }: { plan: PlanId; onPlan: (id: PlanId) => 
           </form>
         )}
         <p className="since" style={{ marginTop: 18 }}>
-          <a href={mapHref}>Ополченская ул., 46, цокольный этаж</a>
+          <a href={gym.mapHref}>{gym.address}</a>
         </p>
       </div>
     </section>

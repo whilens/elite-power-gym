@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { mapHref, phoneHref, vkHref } from "@/lib/content";
+import type { Gym } from "@/lib/types";
 
 const links = [
   ["#directions", "Направления"],
@@ -11,15 +11,15 @@ const links = [
   ["#zapis", "Запись"],
 ];
 
-export function Header() {
+export function Header({ gym }: { gym: Gym }) {
   const [open, setOpen] = useState(false);
   const close = () => setOpen(false);
 
   return (
     <header className="header">
       <a className="logo" href="#top" onClick={close}>
-        <i>EPG</i>
-        Elite
+        <i>{gym.mark}</i>
+        {gym.name}
       </a>
       <nav className="nav-pill" aria-label="Разделы">
         {links.map(([href, label]) => (
@@ -29,10 +29,10 @@ export function Header() {
         ))}
       </nav>
       <div className="header-actions">
-        <a className="icon-btn" href={vkHref} target="_blank" rel="noreferrer">
+        <a className="icon-btn" href={gym.vkHref} target="_blank" rel="noreferrer">
           VK
         </a>
-        <a className="icon-btn" href={mapHref} target="_blank" rel="noreferrer" aria-label="На карте">
+        <a className="icon-btn" href={gym.mapHref} target="_blank" rel="noreferrer" aria-label="На карте">
           Карта
         </a>
         <a className="btn tariff-link" href="#prices">
@@ -54,8 +54,8 @@ export function Header() {
             {label}
           </a>
         ))}
-        <a href={phoneHref} onClick={close} tabIndex={open ? 0 : -1}>
-          Позвонить
+        <a href={gym.phoneHref} onClick={close} tabIndex={open ? 0 : -1}>
+          {gym.contactLabel}
         </a>
       </nav>
     </header>

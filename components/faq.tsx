@@ -1,9 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { questions } from "@/lib/content";
+import type { Gym } from "@/lib/types";
 
-export function Faq() {
+export function Faq({ gym }: { gym: Gym }) {
   const [open, setOpen] = useState(0);
 
   return (
@@ -12,15 +12,11 @@ export function Faq() {
         <h2>Перед первым визитом</h2>
       </div>
       <div className="faq">
-        {questions.map((item, index) => {
+        {gym.questions.map((item, index) => {
           const on = open === index;
           return (
             <div className={on ? "faq-item is-open" : "faq-item"} key={item.q}>
-              <button
-                type="button"
-                aria-expanded={on}
-                onClick={() => setOpen(on ? -1 : index)}
-              >
+              <button type="button" aria-expanded={on} onClick={() => setOpen(on ? -1 : index)}>
                 {item.q}
                 <span className="plus" aria-hidden>
                   +

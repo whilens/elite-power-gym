@@ -1,6 +1,6 @@
-import { phoneHref, vkHref } from "@/lib/content";
+import type { Gym } from "@/lib/types";
 
-export function Hero() {
+export function Hero({ gym }: { gym: Gym }) {
   return (
     <section className="hero" id="top">
       <img
@@ -10,7 +10,7 @@ export function Hero() {
       />
       <div className="hero-shade" />
       <div className="hero-grid">
-        <a className="clip" href={vkHref} target="_blank" rel="noreferrer">
+        <a className="clip" href={gym.vkHref} target="_blank" rel="noreferrer">
           <img
             alt="Тренировка со штангой"
             src="https://images.unsplash.com/photo-1517963879433-6ad2b056d712?auto=format&fit=crop&w=800&q=80"
@@ -23,16 +23,14 @@ export function Hero() {
           </span>
         </a>
         <div className="hero-copy">
-          <p className="since">В зале с 2017 года · Тракторозаводский район</p>
+          <p className="since">{gym.eyebrow}</p>
           <h1>
-            Место
+            {gym.headline[0]}
             <br />
-            силы
+            {gym.headline[1]}
           </h1>
-          <p className="place">Ополченская, 46</p>
-          <p className="lead">
-            Фитнес, функциональный тренинг, силовые, реабилитация и пауэрлифтинг. Пробный визит — 400 ₽.
-          </p>
+          <p className="place">{gym.street}</p>
+          <p className="lead">{gym.lead}</p>
           <div className="hero-actions">
             <a className="btn btn-light" href="#zapis">
               Записаться на пробное
@@ -40,14 +38,14 @@ export function Hero() {
                 →
               </i>
             </a>
-            <a className="btn btn-line" href={phoneHref}>
-              Позвонить
+            <a className="btn btn-line" href={gym.phoneHref}>
+              {gym.contactLabel}
             </a>
           </div>
         </div>
       </div>
       <p className="wordmark" aria-hidden>
-        ELITE
+        {gym.wordmark}
       </p>
     </section>
   );

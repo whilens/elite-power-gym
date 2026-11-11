@@ -1,23 +1,23 @@
-import { mapHref, phoneDisplay, phoneHref, vkHref } from "@/lib/content";
+import type { Gym } from "@/lib/types";
 
-export function Footer() {
+export function Footer({ gym }: { gym: Gym }) {
   return (
     <footer className="footer">
       <div>
-        <strong>Elite Power Gym</strong>
-        Волгоград, Ополченская улица, 46
+        <strong>{gym.name}</strong>
+        {gym.address}
       </div>
       <div>
         <strong>Связь</strong>
-        <a href={phoneHref}>{phoneDisplay}</a>
+        <a href={gym.phoneHref}>{gym.phoneDisplay}</a>
         <br />
-        <a href={vkHref}>ВКонтакте</a>
+        <a href={gym.vkHref}>ВКонтакте</a>
         {" · "}
-        <a href={mapHref}>Яндекс Карты</a>
+        <a href={gym.mapHref}>На карте</a>
       </div>
       <div>
         <strong>Цены</strong>
-        С витрины сообщества. Перед оплатой сверьте их в зале.
+        {gym.footerNote}
       </div>
     </footer>
   );

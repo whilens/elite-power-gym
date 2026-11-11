@@ -1,3 +1,5 @@
+import type { Gym } from "./types";
+
 export const phoneDisplay = "+7 (937) 750-79-82";
 export const phoneHref = "tel:+79377507982";
 export const vkHref = "https://vk.com/sportcenterepg_vlg";
@@ -134,3 +136,40 @@ export const questions = [
     a: "Условия заморозки в открытой витрине не указаны. Спросите до оплаты, чтобы срок не стал сюрпризом.",
   },
 ];
+
+export const epg: Gym = {
+  slug: "elite-power-gym",
+  name: "Elite Power Gym",
+  mark: "EPG",
+  city: "Волгоград",
+  address: "Волгоград, Ополченская улица, 46",
+  street: "Ополченская, 46",
+  phoneDisplay,
+  phoneHref,
+  contactLabel: "Позвонить",
+  vkHref,
+  vkWriteHref,
+  mapHref,
+  rating: "5 оценок у карточки",
+  eyebrow: "В зале с 2017 года · Тракторозаводский район",
+  headline: ["Место", "силы"],
+  lead: "Фитнес, функциональный тренинг, силовые, реабилитация и пауэрлифтинг. Пробный визит — 400 ₽.",
+  wordmark: "ELITE",
+  directionsTitle: "Зал без лишнего пафоса",
+  directionsText: "Достигнутый результат — это опыт зала и желание человека измениться. Так они сами пишут о себе.",
+  tracks: tracks.map((item) => ({ ...item })),
+  plans: plans.map((plan) => ({ ...plan, points: [...plan.points] })),
+  priceTitle: "Четыре способа ходить в зал",
+  priceIntro: "Цены с витрины сообщества. Полгода дешевле, чем платить месяц за месяцем.",
+  formatsTitle: "Что ведут в зале",
+  formatsText: "Пять форматов зала на Ополченской: от железа до детских групп.",
+  factsTitle: "Коротко до визита",
+  factsText: "Живой отзыв на картах один. Остальное — адрес, часы и цены, чтобы не гадать.",
+  facts: [...facts],
+  questions: [...questions],
+  visitTitle: "Пробное занятие — 400 ₽",
+  visitLead: "Оставьте имя и телефон. Со страницы заявка сама не уходит: дальше звонок или сообщение во ВКонтакте.",
+  footerNote: "С витрины сообщества. Перед оплатой сверьте их в зале.",
+  offerTo: "",
+  offer: "",
+};

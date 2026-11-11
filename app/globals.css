@@ -224,6 +224,10 @@ section { scroll-margin-top: 76px; }
   display: grid;
   place-items: center;
 }
+.hero-copy {
+  position: relative;
+  z-index: 2;
+}
 .hero-copy h1 {
   font-family: var(--font-display);
   font-weight: 700;

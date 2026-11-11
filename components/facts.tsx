@@ -1,15 +1,15 @@
-import { facts } from "@/lib/content";
 import { Rail } from "@/components/rail";
+import type { Gym } from "@/lib/types";
 
-export function Facts() {
+export function Facts({ gym }: { gym: Gym }) {
   return (
     <section className="paper" id="facts">
       <div className="section-head">
-        <h2>Коротко до визита</h2>
-        <p>Живой отзыв на картах один. Остальное — адрес, часы и цены, чтобы не гадать.</p>
+        <h2>{gym.factsTitle}</h2>
+        <p>{gym.factsText}</p>
       </div>
       <Rail label="факты" className="rail-short">
-        {facts.map((item) => (
+        {gym.facts.map((item) => (
           <article className="fact" key={item.kicker}>
             <div>
               <p className="kicker">{item.kicker}</p>
