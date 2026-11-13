@@ -285,8 +285,9 @@ section { scroll-margin-top: 76px; }
 .paper { background: var(--paper); color: var(--ink); color-scheme: light; }
 .section-head {
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
-  align-items: end;
+  align-items: flex-start;
   gap: 24px;
   padding: 0 var(--pad) 36px;
 }

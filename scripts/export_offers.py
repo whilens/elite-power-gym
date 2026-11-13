@@ -24,7 +24,7 @@ for slug, part in zip(parts, blocks):
             grab("phoneDisplay"),
             grab("offerTo"),
             "/" + slug,
-            grab("offer"),
+            grab("offer").replace("\\n", "\n"),
         )
     )
 
