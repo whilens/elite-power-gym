@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { Reveal } from "@/components/reveal";
 import type { Gym } from "@/lib/types";
 
 export function Visit({ gym, plan, onPlan }: { gym: Gym; plan: string; onPlan: (id: string) => void }) {
@@ -32,13 +33,13 @@ export function Visit({ gym, plan, onPlan }: { gym: Gym; plan: string; onPlan: (
 
   return (
     <section className="close" id="zapis">
-      <div className="close-photo">
+      <Reveal className="close-photo" y={20}>
         <img
           alt="Тренажёрный зал"
           src="https://images.unsplash.com/photo-1571902943202-507ec2618e8f?auto=format&fit=crop&w=1600&q=80"
         />
-      </div>
-      <div className="close-copy">
+      </Reveal>
+      <Reveal className="close-copy" delay={0.1} y={28}>
         <h2>{gym.visitTitle}</h2>
         <p className="lead">{gym.visitLead}</p>
         {ready ? (
@@ -93,7 +94,7 @@ export function Visit({ gym, plan, onPlan }: { gym: Gym; plan: string; onPlan: (
         <p className="since" style={{ marginTop: 18 }}>
           <a href={gym.mapHref}>{gym.address}</a>
         </p>
-      </div>
+      </Reveal>
     </section>
   );
 }

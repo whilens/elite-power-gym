@@ -8,6 +8,7 @@ import { Formats } from "@/components/formats";
 import { Header } from "@/components/header";
 import { Hero } from "@/components/hero";
 import { Pricing } from "@/components/pricing";
+import { Reveal } from "@/components/reveal";
 import { Visit } from "@/components/visit";
 import { epg } from "@/lib/content";
 import type { Gym } from "@/lib/types";
@@ -28,16 +29,20 @@ export function Site({ gym = epg }: { gym?: Gym }) {
       <main>
         <Hero gym={gym} />
         <section className="band" id="directions">
-          <div className="section-head">
-            <h2>{gym.directionsTitle}</h2>
-            <p>{gym.directionsText}</p>
-          </div>
+          <Reveal>
+            <div className="section-head">
+              <h2>{gym.directionsTitle}</h2>
+              <p>{gym.directionsText}</p>
+            </div>
+          </Reveal>
           <ul className="track-list">
-            {gym.tracks.map((item) => (
-              <li key={item.title}>
-                <strong>{item.title}</strong>
-                <span>{item.text}</span>
-              </li>
+            {gym.tracks.map((item, index) => (
+              <Reveal key={item.title} delay={Math.min(index * 0.07, 0.28)} y={18}>
+                <li>
+                  <strong>{item.title}</strong>
+                  <span>{item.text}</span>
+                </li>
+              </Reveal>
             ))}
           </ul>
         </section>

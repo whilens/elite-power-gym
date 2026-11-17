@@ -1,5 +1,6 @@
 "use client";
 
+import { Reveal } from "@/components/reveal";
 import type { Gym, Plan } from "@/lib/types";
 
 function Tick() {
@@ -15,13 +16,17 @@ function Tick() {
 export function Pricing({ gym, onPick }: { gym: Gym; onPick: (id: string) => void }) {
   return (
     <section className="paper" id="prices">
-      <div className="section-head">
-        <h2>{gym.priceTitle}</h2>
-        <p>{gym.priceIntro}</p>
-      </div>
+      <Reveal>
+        <div className="section-head">
+          <h2>{gym.priceTitle}</h2>
+          <p>{gym.priceIntro}</p>
+        </div>
+      </Reveal>
       <div className="price-grid">
-        {gym.plans.map((plan) => (
-          <PlanCard key={plan.id} plan={plan} contactHref={gym.phoneHref} contactLabel={gym.contactLabel} onPick={onPick} />
+        {gym.plans.map((plan, index) => (
+          <Reveal key={plan.id} delay={Math.min(index * 0.08, 0.24)} y={32}>
+            <PlanCard plan={plan} contactHref={gym.phoneHref} contactLabel={gym.contactLabel} onPick={onPick} />
+          </Reveal>
         ))}
       </div>
     </section>
