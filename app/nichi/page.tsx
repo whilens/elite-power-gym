@@ -16,7 +16,7 @@ export default function NichiIndexPage() {
           {niches.map((niche, index) => (
             <li key={niche.slug}>
               <Link className="home-card" href={`/nichi/${niche.slug}`}>
-                <i>0{index + 1}</i>
+                <i>{String(index + 1).padStart(2, "0")}</i>
                 <strong>{niche.shortName}</strong>
                 <span>{niche.eyebrow}</span>
               </Link>
